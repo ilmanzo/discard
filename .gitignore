@@ -1,0 +1,19 @@
+# Nim build artifacts
+nimcache/
+*.exe
+*.out
+
+# Compiled binaries (Nim outputs are extensionless on *nix)
+/discard
+levels/*/verify
+tests/test_engine
+
+# Local game runtime state
+.discard_state
+.discard_cache
+
+# Markdown: ignore all docs except the README and the in-game level hints
+# (levels/*/info.md is game content read by `./discard hint` — keep it tracked)
+*.md
+!README.md
+!levels/**/info.md
