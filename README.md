@@ -12,6 +12,8 @@ You control **Discard** — a semi-forgotten robot representing the lightweight,
 
 To escape, you must write a `playTurn` procedure in Nim that programs Discard's decisions each turn. Navigate 13 progressively harder levels, salvage **Cards** (compiler upgrades and standard library modules), rescue buddy bots, and defeat space-slug bugs — all while learning real Nim features level by level.
 
+![Discard gameplay demo](docs/demo.gif)
+
 ### Requirements
 
 - **Nim** ≥ 1.6.0
@@ -81,14 +83,14 @@ Terminals without UTF-8 automatically fall back to ASCII art.
 | 2 | Pest Control | `case` statement | slug |
 | 3 | Low Battery | comparison operators, `bot.health` | slug, low HP |
 | 4 | Rescue Mission | UFCS (`a.f(b)`), `.isCrew` | locked exit |
-| 5 | Sentinel (Mid-Boss) | helper procs, implicit `result` | ranged boss |
+| 5 | Gopher (Mid-Boss) | helper procs, implicit `result` | Gopher mid-boss (2 HP) |
 | 6 | Ambush | two-direction logic, `if`/`elif` | slugs front & back |
 | 7 | Memory Matrix | persistent `seq` + turn parity | plasma timing field |
 | 8 | Corrupted Area | `enum` finite state machine | plasma timing field |
-| 9 | Boss Assembly | full API composition | multi-layer boss |
+| 9 | Ferris the Crab (Boss) | full API composition | Crab boss (4 HP) |
 | 10 | Hidden Minefield | `iterator` / `yield` | live mines (shoot to clear) |
 | 11 | Scrap Sorting | object variants, `case` on `kind` | sorting belt (mis-sort jams) |
-| 12 | Final Boss: Core Jammer | `template` (AST substitution) | 4-layer boss |
+| 12 | Compile-Time Jammer (Final Gauntlet) | `template` (AST substitution) | 4 regular slugs |
 
 Each level's hazard is enforced by the simulation, not by inspecting your source — the taught concept is the tool you actually need to survive.
 
@@ -202,14 +204,14 @@ I terminali senza UTF-8 ripiegano automaticamente sull'arte ASCII.
 | 2 | Pest Control | istruzione `case` | slug |
 | 3 | Low Battery | operatori di confronto, `bot.health` | slug, HP basso |
 | 4 | Rescue Mission | UFCS (`a.f(b)`), `.isCrew` | uscita bloccata |
-| 5 | Sentinel (Mid-Boss) | procedure helper, `result` implicito | boss a distanza |
+| 5 | Gopher (Mid-Boss) | procedure helper, `result` implicito | Gopher mid-boss (2 HP) |
 | 6 | Ambush | logica a due direzioni, `if`/`elif` | slug davanti e dietro |
 | 7 | Memory Matrix | `seq` persistente + parità dei turni | campo di plasma |
 | 8 | Corrupted Area | macchina a stati con `enum` | campo di plasma |
-| 9 | Boss Assembly | composizione completa dell'API | boss multi-strato |
+| 9 | Ferris the Crab (Boss) | composizione completa dell'API | Crab boss (4 HP) |
 | 10 | Hidden Minefield | `iterator` / `yield` | mine attive (spara per neutralizzarle) |
 | 11 | Scrap Sorting | varianti di oggetti, `case` su `kind` | nastro di smistamento (errore = inceppamento) |
-| 12 | Final Boss: Core Jammer | `template` (sostituzione AST) | boss a 4 strati |
+| 12 | Compile-Time Jammer (Gauntlet Finale) | `template` (sostituzione AST) | 4 slug regolari |
 
 Il pericolo di ogni livello è imposto dalla simulazione, non dall'ispezione del codice sorgente — il concetto insegnato è lo strumento che serve davvero per sopravvivere.
 
