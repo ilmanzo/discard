@@ -29,6 +29,17 @@ type
     EqBattery, EqBlaster, EqRestModule
 
 type
+  BossKind* = enum
+    bkNone
+    bkGopher
+    bkCrab
+
+  Boss* = object
+    kind*: BossKind
+    pos*: int
+    hp*: int
+    maxHp*: int
+
   ScrapKind* = enum
     skGear
     skWire

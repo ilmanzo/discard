@@ -14,6 +14,7 @@ type
     isFailed*: bool
     plasmaField*: bool   # if true, walking on venting (even) turns is lethal
     botBitten*: bool     # set for the turn a Slug bit the bot (drives combat FX)
+    boss*: Boss          # single multi-hit boss (kind=bkNone if level has none)
     scrapQueue*: seq[Scrap]  # if non-empty, this is a sorting belt: one item presented per turn
     scrapIndex*: int     # which belt item is currently loaded
     log*: seq[string]
@@ -78,6 +79,12 @@ proc initLevel*(gridStr: string, maxTurns: int = 30, plasmaField: bool = false,
     of 'W':
       result.grid.add(Weapon)
     of 'S':
+      result.grid.add(Slug)
+    of 'G':
+      result.boss = Boss(kind: bkGopher, pos: result.grid.len, hp: 2, maxHp: 2)
+      result.grid.add(Slug)
+    of 'F':
+      result.boss = Boss(kind: bkCrab, pos: result.grid.len, hp: 4, maxHp: 4)
       result.grid.add(Slug)
     of 'C':
       result.grid.add(Crew)
@@ -179,8 +186,16 @@ proc tick*(state: var LevelState, playTurn: proc(bot: var Bot) {.nimcall.}) =
       if inBounds(next, gridLen):
         let targetKind = state.grid[next]
         if targetKind == Slug:
-          state.grid[next] = Empty
-          state.log.add("Bot attacks Slug! Dealt 10 impact damage. (Slug crushed)")
+          if state.boss.kind != bkNone and next == state.boss.pos and state.boss.hp > 0:
+            state.boss.hp -= 1
+            if state.boss.hp <= 0:
+              state.grid[next] = Empty
+              state.log.add("Bot lands the killing blow! Boss vanquished.")
+            else:
+              state.log.add("Bot strikes the boss! (HP: " & $state.boss.hp & "/" & $state.boss.maxHp & ")")
+          else:
+            state.grid[next] = Empty
+            state.log.add("Bot attacks Slug! Dealt 10 impact damage. (Slug crushed)")
         else:
           state.log.add("Bot flails limbs, hitting nothing.")
       else:
@@ -220,8 +235,16 @@ proc tick*(state: var LevelState, playTurn: proc(bot: var Bot) {.nimcall.}) =
         if kind == Wall:
           break
         if kind == Slug:
-          state.grid[next] = Empty
-          state.log.add("Laser beam vaporizes Slug! Dealt 10 damage. (Slug destroyed)")
+          if state.boss.kind != bkNone and next == state.boss.pos and state.boss.hp > 0:
+            state.boss.hp -= 1
+            if state.boss.hp <= 0:
+              state.grid[next] = Empty
+              state.log.add("Laser beam shreds the final layer! Boss vanquished.")
+            else:
+              state.log.add("Laser beam scorches the boss! (HP: " & $state.boss.hp & "/" & $state.boss.maxHp & ")")
+          else:
+            state.grid[next] = Empty
+            state.log.add("Laser beam vaporizes Slug! Dealt 10 damage. (Slug destroyed)")
           hit = true
           break
         if kind == Mine:

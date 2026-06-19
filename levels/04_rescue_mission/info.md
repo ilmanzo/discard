@@ -3,7 +3,7 @@
 ### Lore
 Discard has encountered a scrapyard salvage sector littered with defunct Bloat-Corp buddy bots. These bots are deactivated and block your forward path.
 
-You cannot leave them behind! To proceed, you must use your newly salvaged **Grabber Arm Card**. When you detect a buddy bot (`C`) right in front of you, execute `bot.rescue(Forward)` to repair and reboot its firmware. 
+You cannot leave them behind! To proceed, you must use your newly installed **Grabber Arm Card**. When you detect a buddy bot (`C`) right in front of you, execute `bot.rescue(Forward)` to repair and reboot its firmware. 
 
 The exit airlock will remain locked if any buddy bot is left behind!
 

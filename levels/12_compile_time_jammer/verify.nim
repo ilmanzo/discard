@@ -20,6 +20,7 @@ proc checkExtra(state: LevelState): bool =
   return true
 
 proc main() =
+  # Grid Layout: 4 separated slugs forming a final gauntlet
   verifyLevel(
     grid = "@   S S S S >",
     maxTurns = 30,

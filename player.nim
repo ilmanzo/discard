@@ -1,9 +1,14 @@
-# player.nim - Level 1: Reboot
-# Write your robot AI here and run './discard check' to test.
-
+# Reference Solution - Level 5: Long-Range Sensors
 import discard_api
 
+proc isThreat(bot: Bot, dist: int): bool =
+  if bot.look(dist, Forward) == Slug:
+    result = true
+
 proc playTurn*(bot: var Bot) =
-  # TODO: Command Discard to move toward the exit airlock.
-  # Hint: Call 'bot.walk()' to roll forward!
-  discard # 'discard' is a Nim keyword to do nothing or ignore values. Replace this!
+  if bot.isThreat(2) or bot.isThreat(3):
+    bot.shoot(Forward)
+  elif bot.feel(Forward).isEnemy:
+    bot.attack(Forward)
+  else:
+    bot.walk(Forward)

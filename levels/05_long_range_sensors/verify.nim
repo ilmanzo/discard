@@ -20,13 +20,13 @@ proc checkExtra(state: LevelState): bool =
   return true
 
 proc main() =
-  # Grid Layout: Sentinel dual-layer shield 'S S' at pos 4 and 5
+  # Grid Layout: Gopher mid-boss 'G' at pos 4 (2 HP, single tile)
   verifyLevel(
-    grid = "@   S S >",
+    grid = "@   G >",
     maxTurns = 25,
     setupBot = setup,
     playTurn = playTurn,
-    successMessage = "Discard successfully scanned ahead and dismantled the Sentinel Mid-Boss layers!",
+    successMessage = "Discard successfully scanned ahead and dismantled the Gopher Mid-Boss!",
     extraCheck = checkExtra
   )
 

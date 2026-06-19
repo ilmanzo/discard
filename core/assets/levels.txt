@@ -3,11 +3,11 @@
 2:02_pest_control:Pest Control
 3:03_low_battery:Low Battery
 4:04_rescue_mission:Rescue Mission
-5:05_long_range_sensors:Sentinel (Mid-Boss)
+5:05_long_range_sensors:Gopher (Mid-Boss)
 6:06_ambush:Ambush
 7:07_memory_matrix:Memory Matrix
 8:08_corrupted_area:Corrupted Area
-9:09_boss_assembly:Boss Assembly
+9:09_boss_assembly:Ferris the Crab (Boss)
 10:10_hidden_minefield:Hidden Minefield
 11:11_scrap_sorting:Scrap Sorting
-12:12_compile_time_jammer:Final Boss: Core Jammer
+12:12_compile_time_jammer:Compile-Time Jammer (Final Gauntlet)

@@ -1,18 +1,18 @@
-# LEVEL 9: BOSS ASSEMBLY
+# LEVEL 9: FERRIS THE CRAB (BOSS)
 
 ### Lore
-THIS IS IT! The final barrier. A giant, multi-layered Bloat-Corp **Scrap-Smasher Security Boss** (represented by a thick defensive line of armored hostiles `S S S`) blocks the primary sector airlock!
+WARNING! **Ferris the Rust Crab** blocks the corridor — armoured, memory-safe, and stubborn. Ferris takes **4 HP** of laser fire before its pincers retract. Step adjacent and those pincers shred your chassis for 4 HP every turn.
 
-Your core chassis corrosion has reached 98%! If you try to engage in melee combat directly, the armor plating will crush you. You must deploy all cards and modules you have salvaged so far to defeat this massive defensive assembly.
+Combine every subroutine you've salvaged so far: Radar to detect Ferris at range, Blaster to chip away its 4 HP one shot at a time, Rest module to recharge between volleys.
 
-Use your **Radar Scanner** to detect the shields from a distance, and fire your **Laser Blaster** repeatedly to shred the armored sections one by one!
+Vanquish Ferris and the route to the inner gauntlet opens.
 
 ---
 
 ### Objectives
 - Combine all firmware subroutines (Radar, Blaster, Thrusters, Rest).
-- Scan and fire at the armored security shields (`S`) from long range.
-- Vaporize the entire Boss shield assembly and reach the escape airlock (`>`) within **30 cycles**!
+- Scan and fire at Ferris (`Slug`-typed tile) from long range.
+- Drain all 4 HP and reach the inner exit (`>`) within **30 cycles**.
 
 ---
 
@@ -30,6 +30,6 @@ You have full command of all bot procedures and state variables. Assemble them t
 
 ### How to Play
 1. Edit `player.nim` at the root of the project.
-2. Code your master firmware solution, combining radar scanning and ranged laser volleys.
+2. Code your firmware solution, combining radar scanning and ranged laser volleys.
 3. Run `./discard check` in your terminal to compile and run the simulation!
-4. Clear Level 9 to complete the game and secure Discard's escape from the scrap yards!
+4. Vanquish Ferris to unlock the final approach.

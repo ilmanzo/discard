@@ -3,7 +3,7 @@
 ### Lore
 Our metrics show extreme heat and high-damage friction on Sector Delta-9. Discard is leaking energy and is deployed with a low battery state (8% health)!
 
-To clear this corridor, you must study your **Rest Module Card** unlocked from Level 2. When Discard is severely depleted (under 10 HP), command it to **rest** and defragment its energy cells to restore **5 HP** per turn. 
+To clear this corridor, your **Rest Module Card** has just come online. When Discard is severely depleted (under 10 HP), command it to **rest** and defragment its energy cells to restore **5 HP** per turn. 
 
 If a hostile Space-Slug is adjacent, it bites for **4 HP** at the end of the turn. So be sure you only rest when safe, or recharge enough HP to survive a hit!
 

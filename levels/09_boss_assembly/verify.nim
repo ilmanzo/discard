@@ -9,14 +9,13 @@ proc setup(bot: var Bot) =
   bot.equipment = {EqBlaster, EqRestModule}
 
 proc main() =
-  # Grid Layout: 3 tiles empty, then 3 defensive slug armor plates representing the Boss, then Exit.
-  # Layout: @   S S S > (S S S represents the Boss shield layers)
+  # Grid Layout: Ferris crab boss 'F' at pos 4 (4 HP, single tile)
   verifyLevel(
-    grid = "@   S S S >",
+    grid = "@   F >",
     maxTurns = 30,
     setupBot = setup,
     playTurn = playTurn,
-    successMessage = "ALL SYSTEMS CALIBRATED! Discard has Escaped the Scrap Yards! Congratulations!"
+    successMessage = "Ferris the Crab vanquished! The route to the inner gauntlet is clear."
   )
 
 main()

@@ -5,7 +5,7 @@ Alert! Scans of Sector Beta-4 show a hostile infestation. A giant, acidic **Spac
 
 Space-Slugs are incredibly territorial. If you step adjacent to one, it will immediately bite your chassis, leaking highly corrosive fluid that drains your battery by **4 HP** each turn!
 
-Fortunately, you have your **Laser Blaster** salvaged from Level 2. When you detect a Slug right in front of you, execute an **attack** routine to crush it with laser-guided impact force.
+Fortunately, you have your **Laser Blaster** salvaged from Level 1. When you detect a Slug right in front of you, execute an **attack** routine to crush it with laser-guided impact force.
 
 ---
 

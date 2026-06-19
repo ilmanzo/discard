@@ -5,6 +5,8 @@ import std/[os, strutils, osproc, strformat]
 import checksums/md5
 import core/ansi
 
+let ExeRoot = getAppDir()
+
 const
   StateFile = ".discard_state"
   CacheFile = ".discard_cache"
@@ -38,9 +40,10 @@ proc getLevelDef(num: int): LevelDef =
   quit(1)
 
 proc loadState(): (int, string) =
-  if fileExists(StateFile):
+  let path = ExeRoot / StateFile
+  if fileExists(path):
     try:
-      let content = readFile(StateFile).strip()
+      let content = readFile(path).strip()
       let lines = content.splitLines()
       if lines.len >= 2:
         let lvl = parseInt(lines[0].strip())
@@ -51,7 +54,7 @@ proc loadState(): (int, string) =
   return (0, "unsolved")
 
 proc saveState(lvl: int, status: string) =
-  writeFile(StateFile, $lvl & "\n" & status & "\n")
+  writeFile(ExeRoot / StateFile, $lvl & "\n" & status & "\n")
 
 proc showHelp() =
   echo fmt"{ColorBold}{ColorCyan}=== DISCARD PROTOCOL INTERFACE ==={ColorReset}"
@@ -127,7 +130,7 @@ proc colorizeMarkdown(text: string): string =
 
 proc displayHint(lvlNum: int) =
   let def = getLevelDef(lvlNum)
-  let infoPath = "levels" / def.name / "info.md"
+  let infoPath = ExeRoot / "levels" / def.name / "info.md"
   if fileExists(infoPath):
     stdout.write(colorizeMarkdown(readFile(infoPath)))
   else:
@@ -135,15 +138,17 @@ proc displayHint(lvlNum: int) =
 
 proc deployTemplate(def: LevelDef) =
   ## Copies the level template to player.nim, or writes the minimal fallback.
-  let templatePath = "levels" / def.name / "template.nim"
+  let templatePath = ExeRoot / "levels" / def.name / "template.nim"
+  let playerPath = ExeRoot / "player.nim"
   if fileExists(templatePath):
-    copyFile(templatePath, "player.nim")
+    copyFile(templatePath, playerPath)
   else:
-    writeFile("player.nim", DefaultPlayerTemplate)
+    writeFile(playerPath, DefaultPlayerTemplate)
 
 proc ensurePlayerFileExists(def: LevelDef) =
-  if not fileExists("player.nim"):
-    let templatePath = "levels" / def.name / "template.nim"
+  let playerPath = ExeRoot / "player.nim"
+  if not fileExists(playerPath):
+    let templatePath = ExeRoot / "levels" / def.name / "template.nim"
     if fileExists(templatePath):
       echo fmt"{ColorBold}{ColorGreen}Scaffolded player.nim from {def.name} template!{ColorReset}"
     deployTemplate(def)
@@ -152,14 +157,16 @@ proc checkLevel(lvlNum: int, stepMode: bool = false, fastMode: bool = false, bat
   let def = getLevelDef(lvlNum)
   ensurePlayerFileExists(def)
 
-  let verifyPath = "levels" / def.name / "verify.nim"
+  let verifyPath = ExeRoot / "levels" / def.name / "verify.nim"
   if not fileExists(verifyPath):
     echo fmt"{ColorBold}{ColorRed}Error: verification script not found at {verifyPath}{ColorReset}"
     quit(1)
 
   let binaryPath = changeFileExt(verifyPath, "")
-  let currentHash = getMD5(readFile("player.nim") & readFile(verifyPath))
-  let cachedHash = if fileExists(CacheFile): readFile(CacheFile).strip() else: ""
+  let playerPath = ExeRoot / "player.nim"
+  let cachePath = ExeRoot / CacheFile
+  let currentHash = getMD5(readFile(playerPath) & readFile(verifyPath))
+  let cachedHash = if fileExists(cachePath): readFile(cachePath).strip() else: ""
 
   if currentHash != cachedHash or not fileExists(binaryPath):
     echo fmt"{ColorBold}{ColorYellow}Compiling Discard's Nim-firmware for {def.title}...{ColorReset}"
@@ -167,7 +174,7 @@ proc checkLevel(lvlNum: int, stepMode: bool = false, fastMode: bool = false, bat
     if compileCode != 0:
       echo ColorBold & ColorRed & "\nCompilation failed." & ColorReset
       return
-    writeFile(CacheFile, currentHash)
+    writeFile(cachePath, currentHash)
 
   let flags = (if stepMode: " --step" else: "") &
               (if fastMode: " --fast" else: "") &
@@ -201,9 +208,10 @@ proc nextLevel(lvlNum: int, status: string) =
   let nextDef = getLevelDef(nextLvlNum)
 
   # Archive previous solution
-  let archivePath = "levels" / currentDef.name / "solution.nim"
-  if fileExists("player.nim"):
-    copyFile("player.nim", archivePath)
+  let archivePath = ExeRoot / "levels" / currentDef.name / "solution.nim"
+  let playerPath = ExeRoot / "player.nim"
+  if fileExists(playerPath):
+    copyFile(playerPath, archivePath)
     echo fmt"Archived Level {lvlNum} solution to {archivePath}"
 
   # Deploy next level template
@@ -248,7 +256,7 @@ proc selectLevel(targetStr: string) =
 
 proc solveLevel(lvlNum: int) =
   let def = getLevelDef(lvlNum)
-  let solutionPath = "levels" / def.name / "solution.nim"
+  let solutionPath = ExeRoot / "levels" / def.name / "solution.nim"
 
   if not fileExists(solutionPath):
     echo fmt"{ColorBold}{ColorRed}Error: No reference solution found for {def.title}.{ColorReset}"
@@ -257,7 +265,7 @@ proc solveLevel(lvlNum: int) =
   let content = readFile(solutionPath)
 
   try:
-    writeFile("player.nim", content)
+    writeFile(ExeRoot / "player.nim", content)
   except IOError, OSError:
     echo fmt"{ColorBold}{ColorRed}Error: Failed to write solution to player.nim{ColorReset}"
     quit(1)
@@ -284,7 +292,7 @@ proc printApiManual(lvlNum: int) =
   if lvlNum >= 2:
     echo fmt"  {ColorBold}bot.attack(dir){ColorReset}           Strikes adjacent hostile slug in specified direction."
   if lvlNum >= 3:
-    echo fmt"  {ColorBold}bot.rest(){ColorReset}                 Activates Rest Module to restore 10% health."
+    echo fmt"  {ColorBold}bot.rest(){ColorReset}                 Activates Rest Module to restore 5 HP."
   if lvlNum >= 4:
     echo fmt"  {ColorBold}bot.rescue(dir){ColorReset}           Powers up and rescues buddy bot in specified direction."
   if lvlNum >= 5:
@@ -318,6 +326,7 @@ proc watchLevel(lvlNum: int, fastMode: bool = false) =
   let def = getLevelDef(lvlNum)
   ensurePlayerFileExists(def)
 
+  let playerPath = ExeRoot / "player.nim"
   echo fmt"{ColorBold}{ColorCyan}=== WATCH MODE ACTIVE ==={ColorReset}"
   echo fmt"Watching {ColorBold}player.nim{ColorReset} for changes..."
   echo "Press Ctrl+C to exit."
@@ -325,13 +334,13 @@ proc watchLevel(lvlNum: int, fastMode: bool = false) =
 
   checkLevel(lvlNum, fastMode = fastMode)
 
-  var lastTime = getLastModificationTime("player.nim")
+  var lastTime = getLastModificationTime(playerPath)
 
   while true:
     sleep(500)
-    if fileExists("player.nim"):
+    if fileExists(playerPath):
       try:
-        let currentTime = getLastModificationTime("player.nim")
+        let currentTime = getLastModificationTime(playerPath)
         if currentTime != lastTime:
           lastTime = currentTime
           stdout.write(ClearScreen)

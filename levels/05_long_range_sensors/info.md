@@ -1,20 +1,20 @@
-# LEVEL 5: SENTINEL (MID-BOSS)
+# LEVEL 5: GOPHER (MID-BOSS)
 
 ### Lore
-WARNING! A heavy security **Scrap-Scout Sentinel** blocks the corridor ahead. This is your first Mid-Boss encounter! 
+WARNING! A reinforced **Golang Gopher** blocks the corridor ahead. This is your first Mid-Boss encounter!
 
-The Sentinel is represented by a dual-layered armor shield (`S S`). Engaging in melee combat directly will cause massive corrosive feedback that drains your cells instantly.
+The Gopher takes **2 hits** to bring down. Step adjacent and it will gnaw your chassis for 4 HP per turn — melee is suicide.
 
-Fortunately, your **Radar Scanner Card** is now active! With this, Discard can scan ahead up to **3 tiles** away using `bot.look(distance, direction)`. 
+Fortunately, your **Radar Scanner Card** is now active! With this, Discard can scan ahead up to **3 tiles** away using `bot.look(distance, direction)`.
 
-You must stay at a distance and fire your **Laser Blaster** repeatedly using `bot.shoot(Forward)` to vaporize both defensive layers of the Mid-Boss before rolling forward safely!
+Stay at range and fire your **Laser Blaster** with `bot.shoot(Forward)` until the Gopher's HP hits zero, then roll forward safely!
 
 ---
 
 ### Objectives
 - Look up to 3 tiles ahead using `bot.look(dist, Forward)`.
-- If a Sentinel shield layer is detected at distance 2 or 3, shoot it using `bot.shoot(Forward)`.
-- Vaporize both shield layers and reach the exit portal (`>`) within **25 cycles** without taking damage.
+- When a `Slug`-typed tile is detected at distance 2 or 3, shoot it using `bot.shoot(Forward)`.
+- Drain the Gopher's HP to zero and reach the exit portal (`>`) within **25 cycles** without taking damage.
 
 ---
 
