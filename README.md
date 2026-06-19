@@ -22,8 +22,7 @@ To escape, you must write a `playTurn` procedure in Nim that programs Discard's 
 ### Build
 
 ```bash
-nim c discard.nim             # development build
-nim c -d:release discard.nim  # release build
+nimble build
 ```
 
 ### Play
@@ -143,8 +142,7 @@ Per fuggire, devi scrivere una procedura `playTurn` in Nim che programma le deci
 ### Compilazione
 
 ```bash
-nim c discard.nim              # build di sviluppo
-nim c -d:release discard.nim   # build di release
+nimble build
 ```
 
 ### Gioco

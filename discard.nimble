@@ -4,6 +4,11 @@ author        = "Andrea"
 description   = "Discard - A terminal-based programming game representing the semi-forgotten Nim language"
 license       = "MIT"
 bin           = @["discard"]
+binDir        = "."
+
+before build:
+  switch("define", "release")
+  switch("warnings", "on")
 
 requires "nim >= 2.2.10"
 requires "checksums"
