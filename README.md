@@ -16,7 +16,7 @@ To escape, you must write a `playTurn` procedure in Nim that programs Discard's 
 
 ### Requirements
 
-- **Nim** ≥ 1.6.0
+- **Nim** ≥ 2.0.0
 - `nimble` (comes with Nim)
 
 ### Build
@@ -136,7 +136,7 @@ Per fuggire, devi scrivere una procedura `playTurn` in Nim che programma le deci
 
 ### Requisiti
 
-- **Nim** ≥ 1.6.0
+- **Nim** ≥ 2.0.0
 - `nimble` (incluso con Nim)
 
 ### Compilazione
